@@ -14,7 +14,9 @@ const Storefront = () => {
   useEffect(() => {
     const fetchStoreData = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/store/mays-bakery/products');
+        // Dynamic API URL: reads from Vercel env variable when deployed, or defaults to localhost
+        const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${API_BASE}/api/store/mays-bakery/products`);
         const data = await res.json();
         setStore(data.store);
         setProducts(data.products || []);
